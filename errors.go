@@ -7,19 +7,25 @@ type Error interface {
 }
 
 type DetailedError struct {
-	Op    Op
-	Cause error
-	Msg   string // Human-readable error message
+	op    Op
+	cause error
+	msg   string // Human-readable error message
+}
+
+// New creates a new error with the given Op and a default message: "Internal system error."
+// The Cause is set to nil.
+func New(op Op) *DetailedError {
+	return &DetailedError{
+		op:    op,
+		cause: nil,
+		msg:   "Internal system error.",
+	}
 }
 
 func (e *DetailedError) Error() string {
-	return e.Msg
+	return e.msg
 }
 
-func New(op Op) *DetailedError {
-	return &DetailedError{
-		Op:    op,
-		Cause: nil,
-		Msg:   "Internal system error.",
-	}
+func (e *DetailedError) Msg(msg string) {
+	e.msg = msg
 }
