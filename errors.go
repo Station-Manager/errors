@@ -28,6 +28,7 @@ func (e *DetailedError) Error() string {
 }
 
 // Msg sets the human-readable error message for a DetailedError instance.
-func (e *DetailedError) Msg(msg string) {
+func (e *DetailedError) Msg(msg string) error {
 	e.msg = msg
+	return e
 }
