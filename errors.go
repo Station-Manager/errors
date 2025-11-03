@@ -22,10 +22,12 @@ func New(op Op) *DetailedError {
 	}
 }
 
+// Error implements the error interface.
 func (e *DetailedError) Error() string {
 	return e.msg
 }
 
+// Msg sets the human-readable error message for a DetailedError instance.
 func (e *DetailedError) Msg(msg string) {
 	e.msg = msg
 }
