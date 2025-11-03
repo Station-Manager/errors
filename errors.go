@@ -15,3 +15,11 @@ type DetailedError struct {
 func (e *DetailedError) Error() string {
 	return e.Msg
 }
+
+func New(op Op) *DetailedError {
+	return &DetailedError{
+		Op:    op,
+		Cause: nil,
+		Msg:   "Internal system error.",
+	}
+}
