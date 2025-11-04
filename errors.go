@@ -70,6 +70,7 @@ func (e *DetailedError) Errorf(format string, a ...any) *DetailedError {
 		return nil
 	}
 	e.cause = fmt.Errorf(format, a...)
+	e.msg = e.cause.Error()
 	return e
 }
 
