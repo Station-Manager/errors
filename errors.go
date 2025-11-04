@@ -2,6 +2,7 @@ package errors
 
 import (
 	stderr "errors"
+	"fmt"
 )
 
 type Op string
@@ -58,6 +59,17 @@ func (e *DetailedError) Err(err error) *DetailedError {
 		return nil
 	}
 	e.cause = err
+	return e
+}
+
+// Errorf formats the error message for a DetailedError instance.
+//
+// Syntactically the same as fmt.Errorf.
+func (e *DetailedError) Errorf(format string, a ...any) *DetailedError {
+	if e == nil {
+		return nil
+	}
+	e.cause = fmt.Errorf(format, a...)
 	return e
 }
 
