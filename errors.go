@@ -84,3 +84,8 @@ func (e *DetailedError) Cause() error {
 	}
 	return e.cause
 }
+
+// Unwrap provides compatibility with the errors.Unwrap function.
+func (e *DetailedError) Unwrap() error {
+	return e.cause
+}
