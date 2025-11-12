@@ -44,6 +44,14 @@ func (e *DetailedError) Error() string {
 	return e.msg
 }
 
+// Op returns the operation identifier associated with this error.
+func (e *DetailedError) Op() Op {
+	if e == nil {
+		return ""
+	}
+	return e.op
+}
+
 // Msg sets the human-readable error message for a DetailedError instance.
 func (e *DetailedError) Msg(msg string) *DetailedError {
 	if e == nil {
