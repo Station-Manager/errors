@@ -61,6 +61,14 @@ func (e *DetailedError) Msg(msg string) *DetailedError {
 	return e
 }
 
+func (e *DetailedError) Msgf(format string, a ...any) *DetailedError {
+	if e == nil {
+		return nil
+	}
+	e.msg = fmt.Sprintf(format, a...)
+	return e
+}
+
 // Err sets the cause for a DetailedError instance.
 func (e *DetailedError) Err(err error) *DetailedError {
 	if e == nil {
