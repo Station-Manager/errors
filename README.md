@@ -1,1 +1,2 @@
-# errors
+# Station Manager: errors package
+
