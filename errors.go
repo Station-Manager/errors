@@ -105,3 +105,34 @@ func (e *DetailedError) Cause() error {
 func (e *DetailedError) Unwrap() error {
 	return e.cause
 }
+
+// Root returns the root cause error in an error chain.
+//
+// It repeatedly unwraps the provided error using errors.Unwrap until there is
+// no further wrapped error. If err is nil, Root returns nil. If the error
+// chain contains a cycle (which should be rare), Root will stop at the last
+// unique error before the cycle to avoid an infinite loop.
+func Root(err error) error {
+	if err == nil {
+		return nil
+	}
+
+	current := err
+	visited := map[error]struct{}{}
+
+	for current != nil {
+		if _, seen := visited[current]; seen {
+			// Cycle detected; return the last error before the cycle.
+			return current
+		}
+		visited[current] = struct{}{}
+
+		next := stderr.Unwrap(current)
+		if next == nil {
+			return current
+		}
+		current = next
+	}
+
+	return err
+}
