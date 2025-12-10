@@ -136,3 +136,14 @@ func Root(err error) error {
 
 	return err
 }
+
+func PrintChain(err error) {
+	for i := 0; err != nil; i++ {
+		if d, ok := AsDetailedError(err); ok {
+			fmt.Printf("[%d] op=%s msg=%s\n", i, d.Op(), d.Error())
+		} else {
+			fmt.Printf("[%d] %s\n", i, err)
+		}
+		err = stderr.Unwrap(err)
+	}
+}
